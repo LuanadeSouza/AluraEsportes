@@ -4,7 +4,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import br.com.luanadev.esportesapplication.database.AppDatabase
-import br.com.luanadev.esportesapplication.database.dao.PagamentoDAO
 import br.com.luanadev.esportesapplication.database.dao.ProdutoDAO
 import br.com.luanadev.esportesapplication.model.Produto
 import br.com.luanadev.esportesapplication.repository.PagamentoRepository
@@ -27,7 +26,7 @@ private const val NOME_BANCO_DE_DADOS = "aluraesporte.db"
 private const val NOME_BANCO_DE_DADOS_TESTE = "aluraesporte-test.db"
 
 val testeDatabaseModule = module {
-    single<AppDatabase> {
+    single {
         Room.databaseBuilder(
             get(),
             AppDatabase::class.java,
@@ -61,7 +60,7 @@ val testeDatabaseModule = module {
 }
 
 val databaseModule = module {
-    single<AppDatabase> {
+    single {
         Room.databaseBuilder(
             get(),
             AppDatabase::class.java,
@@ -71,21 +70,21 @@ val databaseModule = module {
 }
 
 val daoModule = module {
-    single<ProdutoDAO> { get<AppDatabase>().produtoDao() }
-    single<PagamentoDAO> { get<AppDatabase>().pagamentoDao() }
-    single<ProdutoRepository> { ProdutoRepository(get()) }
-    single<PagamentoRepository> { PagamentoRepository(get()) }
+    single { get<AppDatabase>().produtoDao() }
+    single { get<AppDatabase>().pagamentoDao() }
+    single { ProdutoRepository(get()) }
+    single { PagamentoRepository(get()) }
 }
 
 val uiModule = module {
-    factory<DetalhesProdutoFragment> { DetalhesProdutoFragment() }
-    factory<ListaProdutosFragment> { ListaProdutosFragment() }
-    factory<PagamentoFragment> { PagamentoFragment() }
-    factory<ProdutosAdapter> { ProdutosAdapter(get()) }
+    factory { DetalhesProdutoFragment() }
+    factory { ListaProdutosFragment() }
+    factory { PagamentoFragment() }
+    factory { ProdutosAdapter(get()) }
 }
 
 val viewModelModule = module {
-    viewModel<ProdutosViewModel> { ProdutosViewModel(get()) }
-    viewModel<DetalhesProdutoViewModel> { (id: Long) -> DetalhesProdutoViewModel(id, get()) }
-    viewModel<PagamentoViewModel> { PagamentoViewModel(get(), get()) }
+    viewModel { ProdutosViewModel(get()) }
+    viewModel { (id: Long) -> DetalhesProdutoViewModel(id, get()) }
+    viewModel { PagamentoViewModel(get(), get()) }
 }

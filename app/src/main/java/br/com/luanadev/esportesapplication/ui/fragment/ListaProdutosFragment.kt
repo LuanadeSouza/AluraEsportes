@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.LinearLayout.VERTICAL
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import br.com.luanadev.esportesapplication.R
-import br.com.luanadev.esportesapplication.model.Produto
+import br.com.luanadev.esportesapplication.ui.activity.CHAVE_PRODUTO_ID
 import br.com.luanadev.esportesapplication.ui.recyclerview.adapter.ProdutosAdapter
 import br.com.luanadev.esportesapplication.ui.viewmodel.ProdutosViewModel
 import kotlinx.android.synthetic.main.lista_produtos.*
@@ -20,7 +21,7 @@ class ListaProdutosFragment : Fragment() {
 
     private val viewModel: ProdutosViewModel by viewModel()
     private val adapter: ProdutosAdapter by inject()
-    var quandoProdutoSelecionado: (produto: Produto) -> Unit = {}
+    private val controlador by lazy { findNavController() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,8 +55,16 @@ class ListaProdutosFragment : Fragment() {
     private fun configuraRecyclerView() {
         val divisor = DividerItemDecoration(context, VERTICAL)
         lista_produtos_recyclerview.addItemDecoration(divisor)
-        adapter.onItemClickListener = quandoProdutoSelecionado
+        adapter.onItemClickListener = { produtoSelecionado ->
+            vaiParaDetalhesDoProdutos(produtoSelecionado.id)
+        }
         lista_produtos_recyclerview.adapter = adapter
+    }
+
+    private fun vaiParaDetalhesDoProdutos(produtoId: Long) {
+        val dados = Bundle()
+        dados.putLong(CHAVE_PRODUTO_ID, produtoId)
+        controlador.navigate(R.id.detalhes_produto, dados)
     }
 
 }
