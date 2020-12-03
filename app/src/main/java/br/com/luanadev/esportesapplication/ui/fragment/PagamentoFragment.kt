@@ -8,11 +8,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import br.com.luanadev.esportesapplication.R
 import br.com.luanadev.esportesapplication.extensions.formatParaMoedaBrasileira
 import br.com.luanadev.esportesapplication.model.Pagamento
 import br.com.luanadev.esportesapplication.model.Produto
-import br.com.luanadev.esportesapplication.ui.activity.CHAVE_PRODUTO_ID
 import br.com.luanadev.esportesapplication.ui.viewmodel.PagamentoViewModel
 import kotlinx.android.synthetic.main.pagamento.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -24,10 +24,8 @@ private const val COMPRA_REALIZADA = "Compra realizada"
 
 class PagamentoFragment : Fragment() {
 
-    private val produtoId by lazy {
-        arguments?.getLong(CHAVE_PRODUTO_ID)
-            ?: throw IllegalArgumentException(ID_PRODUTO_INVALIDO)
-    }
+    private val argumentos by navArgs<PagamentoFragmentArgs>()
+    private val produtoId by lazy { argumentos.produtoId }
     private val viewModel: PagamentoViewModel by viewModel()
     private lateinit var produtoEscolhido: Produto
     private val controlador by lazy { findNavController() }
@@ -76,7 +74,8 @@ class PagamentoFragment : Fragment() {
                 .observe(this, Observer {
                     it?.dado?.let {
                         Toast.makeText(context, COMPRA_REALIZADA, Toast.LENGTH_SHORT).show()
-                        controlador.navigate(R.id.action_pagamento_to_listaProdutos)
+                       val directions = PagamentoFragmentDirections.actionPagamentoToListaProdutos()
+                        controlador.navigate(directions)
                     }
                 })
         }

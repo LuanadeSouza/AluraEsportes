@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import br.com.luanadev.esportesapplication.R
-import br.com.luanadev.esportesapplication.ui.activity.CHAVE_PRODUTO_ID
 import br.com.luanadev.esportesapplication.ui.recyclerview.adapter.ProdutosAdapter
 import br.com.luanadev.esportesapplication.ui.viewmodel.ProdutosViewModel
 import kotlinx.android.synthetic.main.lista_produtos.*

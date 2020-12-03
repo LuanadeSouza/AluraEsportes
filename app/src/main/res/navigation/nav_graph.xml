@@ -37,6 +37,8 @@
             app:launchSingleTop="false"
             app:popUpTo="@id/listaProdutos"
             app:popUpToInclusive="true" />
+        <argument android:name="produtoId"
+            app:argType="long" />
     </fragment>
 
 </navigation>

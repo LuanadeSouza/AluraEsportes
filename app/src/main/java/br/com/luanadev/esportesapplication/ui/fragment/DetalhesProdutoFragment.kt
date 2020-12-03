@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import br.com.luanadev.esportesapplication.R
 import br.com.luanadev.esportesapplication.extensions.formatParaMoedaBrasileira
-import br.com.luanadev.esportesapplication.ui.activity.CHAVE_PRODUTO_ID
 import br.com.luanadev.esportesapplication.ui.viewmodel.DetalhesProdutoViewModel
 import kotlinx.android.synthetic.main.detalhes_produto.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -17,10 +17,8 @@ import org.koin.core.parameter.parametersOf
 
 class DetalhesProdutoFragment : Fragment() {
 
-    private val produtoId by lazy {
-        arguments?.getLong(CHAVE_PRODUTO_ID)
-            ?: throw IllegalArgumentException(ID_PRODUTO_INVALIDO)
-    }
+    private val argumentos by navArgs<DetalhesProdutoFragmentArgs>()
+    private val produtoId by lazy { argumentos.produtoId }
     private val viewModel: DetalhesProdutoViewModel by viewModel { parametersOf(produtoId) }
     private val controlador by lazy { findNavController() }
 
@@ -51,9 +49,8 @@ class DetalhesProdutoFragment : Fragment() {
     }
 
     private fun vaiParaPagamento() {
-        val dados = Bundle()
-        dados.putLong(CHAVE_PRODUTO_ID, produtoId)
-        controlador.navigate(R.id.pagamento, dados)
+        val directions = DetalhesProdutoFragmentDirections.actionDetalhesProdutoToPagamento(produtoId)
+        controlador.navigate(directions)
     }
 
     private fun buscaProduto() {
