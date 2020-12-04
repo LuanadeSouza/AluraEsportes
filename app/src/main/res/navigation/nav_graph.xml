@@ -12,7 +12,11 @@
         tools:layout="@layout/lista_produtos" >
         <action
             android:id="@+id/action_listaProdutos_to_detalhes_produto"
-            app:destination="@id/detalhes_produto" />
+            app:destination="@id/detalhes_produto"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_in_right" />
     </fragment>
     <fragment
         android:id="@+id/detalhes_produto"
@@ -21,7 +25,11 @@
         tools:layout="@layout/detalhes_produto" >
         <action
             android:id="@+id/action_detalhes_produto_to_pagamento"
-            app:destination="@id/pagamento" />
+            app:destination="@id/pagamento"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
             android:name="produtoId"
             app:argType="long" />

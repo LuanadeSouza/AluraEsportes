@@ -10,10 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EsportesApplication"
         android:name=".AppApplication">
-        <activity android:name=".MainActivity">
-
-        </activity>
-        <activity android:name=".ui.activity.ProdutosActivity">
+        <activity android:name=".ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

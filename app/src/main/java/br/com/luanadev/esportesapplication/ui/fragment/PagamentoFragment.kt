@@ -30,16 +30,9 @@ class PagamentoFragment : Fragment() {
     private lateinit var produtoEscolhido: Produto
     private val controlador by lazy { findNavController() }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(
-            R.layout.pagamento,
-            container,
-            false
-        )
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.pagamento, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -82,29 +75,20 @@ class PagamentoFragment : Fragment() {
     }
 
     private fun criaPagamento(): Pagamento? {
-        val numeroCartao = pagamento_numero_cartao
-            .editText?.text.toString()
-        val dataValidade = pagamento_data_validade
-            .editText?.text.toString()
-        val cvc = pagamento_cvc
-            .editText?.text.toString()
+        val numeroCartao = pagamento_numero_cartao.editText?.text.toString()
+        val dataValidade = pagamento_data_validade.editText?.text.toString()
+        val cvc = pagamento_cvc.editText?.text.toString()
         return geraPagamento(numeroCartao, dataValidade, cvc)
     }
 
-    private fun geraPagamento(
-        numeroCartao: String,
-        dataValidade: String,
-        cvc: String
-    ): Pagamento? = try {
-        Pagamento(
+    private fun geraPagamento(numeroCartao: String, dataValidade: String,
+        cvc: String): Pagamento? = try { Pagamento(
             numeroCartao = numeroCartao.toInt(),
             dataValidade = dataValidade,
             cvc = cvc.toInt(),
             produtoId = produtoId,
             preco = produtoEscolhido.preco
         )
-    } catch (e: NumberFormatException) {
-        null
-    }
+    } catch (e: NumberFormatException) { null }
 
 }

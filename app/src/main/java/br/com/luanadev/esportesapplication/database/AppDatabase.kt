@@ -10,7 +10,7 @@ import br.com.luanadev.esportesapplication.model.Pagamento
 import br.com.luanadev.esportesapplication.model.Produto
 
 @Database(
-    version = 2,
+    version = 1,
     entities = [Produto::class, Pagamento::class],
     exportSchema = false
 )
